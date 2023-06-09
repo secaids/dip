@@ -1,4 +1,4 @@
-## <a href="https://github.com/secaids/dip/#Read&Write-Image">Read & Write Image</a>
+## <a href="https://github.com/secaids/dip/#ReadWrite-Image">Read & Write Image</a>
 ## <a href="https://github.com/secaids/dip/#Image-Acquisition-from-Web-Camera">Image Acquisition from Web Camera</a>
 ## <a href="https://github.com/secaids/dip/#Color-Conv">Color Conversion</a>
 ## <a href="https://github.com/secaids/dip/#Histogram">Histogram and Histogram Equalization of an image</a>
