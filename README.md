@@ -1,8 +1,8 @@
 ## <a href="https://github.com/secaids/dip/#ReadWrite-Image">Read & Write Image</a>
-## <a href="https://github.com/secaids/dip/#Image-Acquisition-from-Web-Camera">Image Acquisition from Web Camera</a>
+## <a href="https://github.com/secaids/dip/#Web-Camera">Image Acquisition from Web Camera</a>
 ## <a href="https://github.com/secaids/dip/#Color-Conv">Color Conversion</a>
 ## <a href="https://github.com/secaids/dip/#Histogram">Histogram and Histogram Equalization of an image</a>
-## <a href="https://github.com/secaids/dip/#Image-Transformation">Image Transformation</a>
+## <a href="https://github.com/secaids/dip/#Transformation">Image Transformation</a>
 ## <a href="https://github.com/secaids/dip/#Filters">Implemetation of Filters</a>
 ## <a href="https://github.com/secaids/dip/#"></a>
 ## <a href="https://github.com/secaids/dip/#"></a>
@@ -44,7 +44,7 @@ cv2.imshow("cut_pic.png",img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
-## Image-Acquisition-from-Web-Camera
+## Web-Camera
 i) Write the frame as JPG file
 ```py
 obj = cv2.VideoCapture(0)
@@ -246,7 +246,7 @@ cv2.imshow('equalized gray image',gray_equalized)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
-## Image-Transformation
+## Transformation
 **Image Translation**
 ```python
 import numpy as np
