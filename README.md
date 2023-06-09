@@ -1,15 +1,15 @@
-## <a href="https://github.com/secaids/nn/#Read&Write-Imageg">Read & Write Image</a>
-## <a href="https://github.com/secaids/nn/#Image-Acquisition-from-Web-Camera">Image Acquisition from Web Camera</a>
-## <a href="https://github.com/secaids/nn/#Color-Conv">Color Conversion</a>
-## <a href="https://github.com/secaids/nn/#Histogram">Histogram and Histogram Equalization of an image</a>
-## <a href="https://github.com/secaids/nn/#Image-Transformation">Image Transformation</a>
-## <a href="https://github.com/secaids/nn/#Filters">Implemetation of Filters</a>
-## <a href="https://github.com/secaids/nn/#"></a>
-## <a href="https://github.com/secaids/nn/#"></a>
-## <a href="https://github.com/secaids/nn/#"></a>
-## <a href="https://github.com/secaids/nn/#"></a>
-## <a href="https://github.com/secaids/nn/#"></a>
-## <a href="https://github.com/secaids/nn/#"></a>
+## <a href="https://github.com/secaids/dip/#Read&Write-Imageg">Read & Write Image</a>
+## <a href="https://github.com/secaids/dip/#Image-Acquisition-from-Web-Camera">Image Acquisition from Web Camera</a>
+## <a href="https://github.com/secaids/dip/#Color-Conv">Color Conversion</a>
+## <a href="https://github.com/secaids/dip/#Histogram">Histogram and Histogram Equalization of an image</a>
+## <a href="https://github.com/secaids/dip/#Image-Transformation">Image Transformation</a>
+## <a href="https://github.com/secaids/dip/#Filters">Implemetation of Filters</a>
+## <a href="https://github.com/secaids/dip/#"></a>
+## <a href="https://github.com/secaids/dip/#"></a>
+## <a href="https://github.com/secaids/dip/#"></a>
+## <a href="https://github.com/secaids/dip/#"></a>
+## <a href="https://github.com/secaids/dip/#"></a>
+## <a href="https://github.com/secaids/dip/#"></a>
 
 ## Read&Write-Image
 i) Read and display the image
