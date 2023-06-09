@@ -4,14 +4,14 @@
 ## <a href="https://github.com/secaids/dip/#Histogram">Histogram and Histogram Equalization of an image</a>
 ## <a href="https://github.com/secaids/dip/#Transformation">Image Transformation</a>
 ## <a href="https://github.com/secaids/dip/#Filters">Implemetation of Filters</a>
-## <a href="https://github.com/secaids/dip/#"></a>
-## <a href="https://github.com/secaids/dip/#"></a>
-## <a href="https://github.com/secaids/dip/#"></a>
-## <a href="https://github.com/secaids/dip/#"></a>
-## <a href="https://github.com/secaids/dip/#"></a>
-## <a href="https://github.com/secaids/dip/#"></a>
+## <a href="https://github.com/secaids/dip/#Edge">Edge Detection</a>
+## <a href="https://github.com/secaids/dip/#hough-transform">Edge Linking using Hough Transform</a>
+## <a href="https://github.com/secaids/dip/#Thresholding">Thresholding of Images</a>
+## <a href="https://github.com/secaids/dip/#erosion-dilation">Erosion and Dilation</a>
+## <a href="https://github.com/secaids/dip/#opening-closing">Opening and Closing</a>
+## <a href="https://github.com/secaids/dip/#huffman">Huffman Coding</a>
 
-## Read&Write-Image
+## Read&Write Image
 i) Read and display the image
 ```py
 import cv2
@@ -44,7 +44,7 @@ cv2.imshow("cut_pic.png",img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
-## Web-Camera
+## Web Camera
 i) Write the frame as JPG file
 ```py
 obj = cv2.VideoCapture(0)
@@ -110,7 +110,7 @@ while(True):
 cap2.release()
 cv2.destroyAllWindows()
 ```
-## Color-Conv
+## Color Conv
 **i) Convert BGR and RGB to HSV and GRAY**
 ```python
 image=cv2.imread("original.PNG",1)
@@ -406,4 +406,282 @@ cv2.imshow('original image',orig)
 cv2.imshow('Laplacian Operator filtered image',lap_o)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+```
+## Edge
+**Load the image, Convert to grayscale and remove noise**
+```py
+input_img = cv2.imread("mikasa.jpg",1)
+
+gray = cv2.cvtColor(input_img,COLOR_BGR2GRAY)
+
+img = cv2.GaussianBlur(gray,(3,3),0)
+
+cv2.imshow("GaussianBlur",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+**SOBEL EDGE DETECTOR**
+```py
+sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
+sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5)
+sobelxy =cv2.Sobel(img,cv2.CV_64F,1,1,ksize=5)
+
+plt.imshow(img,cmap = 'gray')
+plt.title('Original')
+plt.xticks([]), plt.yticks([])
+plt.show()
+
+plt.imshow(sobelx,cmap = 'gray')
+plt.title('sobelx')
+plt.xticks([]), plt.yticks([])
+plt.show()
+
+plt.imshow(sobely,cmap = 'gray')
+plt.title('sobely')
+plt.xticks([]), plt.yticks([])
+plt.show()
+
+plt.imshow(sobelxy,cmap = 'gray')
+plt.title('sobelxy')
+plt.xticks([]), plt.yticks([])
+
+plt.show()
+```
+**LAPLACIAN EDGE DETECTOR**
+```py
+laplacian = cv2.Laplacian(img,cv2.CV_64F)
+cv2.imshow("laplacian",laplacian)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+**CANNY EDGE DETECTOR**
+```py
+canny_edges = cv2.Canny(img, 120, 150)
+cv2.imshow("Canny",canny_edges)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+## Hough Transform
+```py
+### Import Libraries
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+### Read Image
+image=cv2.imread("dipt.png",1)
+
+plt.imshow(image)
+plt.title('Original')
+plt.axis('off')
+
+### Convert image to grayscale
+gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+
+plt.imshow(image,cmap="gray")
+plt.title('gray')
+plt.axis('off')
+
+
+### Smoothen image using Gaussian Filter
+img = cv2.GaussianBlur(src = gray, ksize = (15,15), sigmaX=0,sigmaY=0)
+
+plt.imshow(img)
+plt.title('EDGES')
+plt.axis('off')
+
+### Find the edges in the image using canny detector
+edges = cv2.Canny(image, 120, 150)
+plt.imshow(edges)
+plt.title('EDGES')
+plt.axis('off')
+
+### Detect points that form a line using HoughLinesP
+lines=cv2.HoughLinesP(edges,1,np.pi/180,threshold=80,minLineLength=50,maxLineGap=250)
+
+### Draw lines on the image
+for line in lines:
+    x1,y1,x2,y2=line[0]
+    cv2.line(image,(x1,y1),(x2,y2),(80,0,50),2)
+
+### Display the result
+plt.imshow(image)
+plt.title('HOUGH')
+plt.axis('off')
+```
+## Thresholding
+### Load the necessary packages
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+```
+### Read the Image and convert to grayscale
+```python
+in_img=cv2.imread('dip.PNG')
+in_img2=cv2.imread('diptPNG')
+
+gray_img = cv2.cvtColor(in_img,cv2.COLOR_BGR2GRAY)
+gray_img2 = cv2.cvtColor(in_img2,cv2.COLOR_BGR2GRAY)
+```
+### Use Global thresholding to segment the image
+```python
+# cv2.threshold(image, threshold_value, max_val, thresholding_technique)
+ret,thresh_img1=cv2.threshold(gray_img,86,255,cv2.THRESH_BINARY)
+ret,thresh_img2=cv2.threshold(gray_img,86,255,cv2.THRESH_BINARY_INV)
+ret,thresh_img3=cv2.threshold(gray_img,86,255,cv2.THRESH_TOZERO)
+ret,thresh_img4=cv2.threshold(gray_img,86,255,cv2.THRESH_TOZERO_INV)
+ret,thresh_img5=cv2.threshold(gray_img,100,255,cv2.THRESH_TRUNC)
+```
+### Use Adaptive thresholding to segment the image
+```python
+# cv2.adaptiveThreshold(source, max_val, adaptive_method, threshold_type, blocksize, constant)
+thresh_img6=cv2.adaptiveThreshold(gray_img2,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
+thresh_img7=cv2.adaptiveThreshold(gray_img2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+```
+### Use Otsu's method to segment the image 
+```python
+# cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+ret,thresh_img8=cv2.threshold(gray_img2,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+```
+### Display the results
+```python
+cv2.imshow('original image',in_img)
+cv2.imshow('original image(second)',in_img2)
+
+cv2.imshow('original image(gray)',gray_img)
+cv2.imshow('original image(gray)(second)',gray_img2)
+
+cv2.imshow('binary threshold',thresh_img1)
+cv2.imshow('binary-inverse threshold',thresh_img2)
+cv2.imshow('to-zero threshold',thresh_img3)
+cv2.imshow('to-zero-inverse threshold',thresh_img4)
+cv2.imshow('truncate threshold',thresh_img5)
+
+cv2.imshow('mean adaptive threshold',thresh_img6)
+cv2.imshow('gaussian adaptive threshold',thresh_img7)
+
+cv2.imshow('otsu\'s threshold',thresh_img8)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+## Erosion Dilation
+### Import the necessary packages
+```py
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+```
+### Create the text using cv2.putText
+```py
+img1 = np.zeros((100,550), dtype = 'uint8')
+font = cv2.FONT_HERSHEY_SIMPLEX
+cv2.putText(img1,'DIPT',(5,70), font, 2,(255),5,cv2.LINE_AA)
+plt.imshow(img1,'gray')
+```
+### Create the structuring element
+```py
+kernel = cv2.getStructuringElement(cv2.MORPH_CROSS,(7,7))
+cv2.erode(img1, kernel)
+```
+### Erode the image
+```py
+image_erode1 = cv2.erode(img1,kernel)
+plt.imshow(image_erode1, 'gray')
+```
+### Dilate the image
+```py
+image_dilate1 = cv2.dilate(img1, kernel)
+plt.imshow(image_dilate1, 'gray')
+```
+## Opening Closing
+### Import the necessary packages
+```python 
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+```
+### Create the Text using cv2.putText
+```python
+text_image = np.zeros((100,250),dtype = 'uint8')
+font = cv2.FONT_HERSHEY_COMPLEX_SMALL
+cv2.putText(text_image,"DIPT",(5,70),font,2,(255),2,cv2.LINE_AA) 
+plt.title("Original Image")
+plt.imshow(text_image,'Blues')
+plt.axis('off')
+```
+### Create the structuring element
+```python
+kernel1=cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
+kernel2=cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
+```
+### Use Opening operation
+```python
+img_open=cv2.morphologyEx(text_image,cv2.MORPH_OPEN,kernel2)
+plt.title("Opened Image")
+plt.imshow(img_open,'Blues')
+plt.axis('off')
+```
+### Use Closing Operation
+```python
+img_close=cv2.morphologyEx(text_image,cv2.MORPH_CLOSE,kernel1)
+plt.title("Closed Image")
+plt.imshow(img_close,'Blues')
+plt.axis('off')
+```
+## Huffman
+### Get the input String
+```py
+string = "Digital Image Processing"
+```
+### Create tree nodes
+```py
+class NodeTree(object):
+    def __init__(self, left=None, right=None): 
+        self.left = left
+        self.right=right
+    def children(self):
+        return (self.left,self.right)
+```
+### Main function to implement huffman coding
+```py
+def huffman_code_tree (node, left=True, binString=''):
+    if type(node) is str:
+        return {node: binString}
+    (l, r) = node.children()
+    d = dict()
+    d.update(huffman_code_tree (l, True, binString + '0'))
+    d.update(huffman_code_tree (r, False, binString + '1'))
+    return d
+```
+### Calculate frequency of occurrence
+```py
+freq = {}
+for c in string:
+    if c in freq:
+        freq[c] += 1
+    else:
+        freq[c] = 1
+
+freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
+nodes=freq
+
+while len(nodes)>1:
+    (key1,c1)=nodes[-1]
+    (key2,c2)=nodes[-2]
+    nodes = nodes[:-2]
+    node = NodeTree (key1, key2)
+    nodes.append((node,c1 + c2))
+    nodes = sorted (nodes, key=lambda x: x[1], reverse=True)
+```
+### Print the characters and its huffmancode
+```py
+huffmanCode=huffman_code_tree(nodes[0][0])
+print(' Char | Huffman code ') 
+print('----------------------')
+for (char, frequency) in freq:
+    print('%-4r  |%12s'%(char,huffmanCode[char]))
 ```
